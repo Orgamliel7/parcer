@@ -1,16 +1,13 @@
-//
-// Created by dekel on 5/12/21.
-//
+
 
 #include <string>
 #include "strings.h"
 #include "parser.h"
 
 void Parser::parse(){
-    //Always insert to the bottom of the stack $
-    stack.push_back(make_shared<Word>(Word(END)));
-    //Parsing is always starting from the first rule production i.e. non-terminal E. It will be above the $
-    stack.push_back(make_shared<Variable>(Variable(E)));
+
+    stack.push_back(make_shared<Word>(Word(END))); // ההכנסה תמיד תהיה לתחתית המחסנית ולכן ניעזר במתודה פוש-בק
+    stack.push_back(make_shared<Variable>(Variable(E))); // הפרסור יתחיל תמיד מחוק הגזירה הראשון
 
     shared_ptr<Symbol> x = stack[stack.size()-1]; //x is the Top of the stack
     terminal a = nextToken(); //a represents the current token
@@ -48,9 +45,10 @@ void Parser::parse(){
 
 terminal Parser::nextToken (){
     string token;
-    //Read next word into token, if any left
-    if(inputFile >> token) {
-        return str_to_terminal.at(token);
+
+    if(inputFile >> token)  //אם נשארה מילה, נקרא אותה לתוך טוקן
+    {
+        return stringForTer.at(token);
     }
     else{
         return END;

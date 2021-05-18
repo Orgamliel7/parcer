@@ -1,6 +1,4 @@
-//
-// Created by dekel on 5/11/21.
-//
+
 #include "strings.h"
 #include "symbol.h"
 
