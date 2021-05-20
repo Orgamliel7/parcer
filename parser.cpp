@@ -9,40 +9,39 @@ void Parser::parse(){
     stack.push_back(make_shared<Word>(Word(END))); // ההכנסה תמיד תהיה לתחתית המחסנית ולכן ניעזר במתודה פוש-בק
     stack.push_back(make_shared<Variable>(Variable(E))); // הפרסור יתחיל תמיד מחוק הגזירה הראשון
 
-    shared_ptr<Symbol> x = stack[stack.size()-1]; //x is the Top of the stack
+    shared_ptr<Symbol> simba = stack[stack.size()-1]; //x is the Top of the stack
     terminal a = nextToken(); //a represents the current token
     printLM();
-
-    while(stack.size() > 1)
-    {
-        //Check if x is instance of Word
-        if(dynamic_cast<Word*>(x.get()) != nullptr && x->getSymbol() == a)
+    int jbl = 1;
+    while(stack.size() > jbl)
+    { // נבדוק אם הוא מופע של האובייקט מילה
+        if(dynamic_cast<Word*>(simba.get()) != nullptr && simba->getSymbol() == a)
         {
             stack.pop_back();
             a = nextToken();
-            accepted.push_back(x); // נכניס את הטוקן החדש שנגזר לתוך הרשימה
+            accepted.push_back(simba); // נכניס את הטוקן החדש שנגזר לתוך הרשימה
         }
-        else if(x->getSymbol() == EPSILON)
+        else if(simba->getSymbol() == EPSILON)
         {
             stack.pop_back();
-            x = stack[stack.size()-1];
+            simba = stack[stack.size()-1];
             continue;
         }
-        else if(dynamic_cast<Word*>(x.get()) != nullptr || table[x->getSymbol()][a] == -1)
+        else if(dynamic_cast<Word*>(simba.get()) != nullptr || table[simba->getSymbol()][a] == jbl-2)
         {
             cout << "syntax error" << endl;
             return;
         }
         else{
             stack.pop_back();
-            int rule = table[x->getSymbol()][a];
+            int rule = table[simba->getSymbol()][a];
             for (auto symbol = rules[rule].begin(); symbol != rules[rule].end(); ++symbol) {
                 stack.push_back(*symbol);
             }
         }
 
         printLM();
-        x = stack[stack.size()-1];
+        simba = stack[stack.size()-1];
     }
 }
 
