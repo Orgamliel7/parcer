@@ -7,7 +7,8 @@
 
 using namespace std;
 
-class RuntimeError : std::exception {
+class RuntimeError : std::exception
+        {
 public:
     RuntimeError(string _msg) : msg(_msg) {}
     ~RuntimeError() throw () {} // Updated
@@ -58,7 +59,8 @@ class Parser
                         }
     };
 
-	vector<vector<int>> table {
+	vector<vector<int>> table
+	{
 		{ 0, -1, -1, 0, -1, -1 },
 		{ -1, 1, -1, -1, 2, 2 },
 		{ 3, -1, -1, 3, -1, -1 },
@@ -70,7 +72,7 @@ class Parser
 	vector<shared_ptr<Symbol>> accepted;
 	
 public:
-	explicit Parser(ifstream& file) : inputFile(file) {}
+	explicit Parser(ifstream& file) : inputFile(file) {} // המתודות שיש לממש
 	void parse();
 	terminal nextToken ();
 	void printLM();

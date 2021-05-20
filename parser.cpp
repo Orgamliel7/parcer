@@ -3,7 +3,7 @@
 #include <string>
 #include "strings.h"
 #include "parser.h"
-
+#define SEPARATOR "| "
 void Parser::parse(){
 
     stack.push_back(make_shared<Word>(Word(END))); // ההכנסה תמיד תהיה לתחתית המחסנית ולכן ניעזר במתודה פוש-בק
@@ -58,16 +58,18 @@ terminal Parser::nextToken ()
     }
 }
 
-void Parser::printLM(){
-    //First print accepted, then | and then the stack (without $)
-    for (auto symbol = accepted.begin(); symbol != accepted.end(); ++symbol) {
-        (*symbol)->printSymbol();
+void Parser::printLM(){  //  לאחר שתאושר ההדפסה נפריד | ורק אז המחסנית בלי הדולר sign
+auto scar = accepted.begin();
+    for (scar; scar != accepted.end(); ++scar)
+    {
+        (*scar)->printSymbol();
     }
 
-    cout << "| ";
-
-    for (auto symbol = stack.rbegin(); symbol != stack.rend()-1; ++symbol) {
-        (*symbol)->printSymbol();
+    cout << SEPARATOR;
+    auto timon = stack.rbegin();
+    for (timon; timon != stack.rend()-1; ++timon)
+    {
+        (*timon)->printSymbol();
     }
 
     cout << endl;
