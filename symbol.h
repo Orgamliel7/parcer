@@ -8,28 +8,28 @@
 #include "enums.h"
 
 class Symbol {
-protected:
-    int symbol;
 public:
+    int symbol;
     Symbol(int s) : symbol(s){}
     int getSymbol();
     virtual void printSymbol() const = 0;
 };
 
-//Terminal
-class Word : public Symbol{
+
+class Word : public Symbol
+        {  // מחלקת הטרמינל עצמה
 public:
     void printSymbol() const override;
-    //Inherit ctor
-    using Symbol::Symbol;
+    using Symbol::Symbol;  //בנאי יורש
 };
 
-//Non-terminal
-class Variable : public Symbol {
+
+class Variable : public Symbol // מחלקה לטיפוס שאינו טרמינל
+        {
 public:
     void printSymbol() const override;
-    //Inherit ctor
-    using Symbol::Symbol;
+
+    using Symbol::Symbol;  // בנאי יורש
 };
 
-#endif //PARSER_SYMBOL_H
+#endif

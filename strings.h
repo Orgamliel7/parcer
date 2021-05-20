@@ -13,8 +13,6 @@
 #include <boost/assign/list_inserter.hpp>
 #include <boost/assign/assignment_exception.hpp>
 #endif
-
-
 #include <map>
 #include "boost/assign.hpp"
 #include "enums.h"

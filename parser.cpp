@@ -13,20 +13,23 @@ void Parser::parse(){
     terminal a = nextToken(); //a represents the current token
     printLM();
 
-    while(stack.size() > 1){
+    while(stack.size() > 1)
+    {
         //Check if x is instance of Word
-        if(dynamic_cast<Word*>(x.get()) != nullptr && x->getSymbol() == a){
+        if(dynamic_cast<Word*>(x.get()) != nullptr && x->getSymbol() == a)
+        {
             stack.pop_back();
             a = nextToken();
-            //Add the new parsed token to the accepted list
-            accepted.push_back(x);
+            accepted.push_back(x); // נכניס את הטוקן החדש שנגזר לתוך הרשימה
         }
-        else if(x->getSymbol() == EPSILON){
+        else if(x->getSymbol() == EPSILON)
+        {
             stack.pop_back();
             x = stack[stack.size()-1];
             continue;
         }
-        else if(dynamic_cast<Word*>(x.get()) != nullptr || table[x->getSymbol()][a] == -1){
+        else if(dynamic_cast<Word*>(x.get()) != nullptr || table[x->getSymbol()][a] == -1)
+        {
             cout << "syntax error" << endl;
             return;
         }
@@ -43,7 +46,8 @@ void Parser::parse(){
     }
 }
 
-terminal Parser::nextToken (){
+terminal Parser::nextToken ()
+{
     string token;
 
     if(inputFile >> token)  //אם נשארה מילה, נקרא אותה לתוך טוקן
