@@ -6,7 +6,54 @@
 #define SEPARATOR "| "
 #define LINEDOWN cout << endl;
 
-void Parser::parse(){
+namespace MyStack
+{
+    struct Stack
+    {
+        std::string value;
+        Stack* next;
+    };
+
+    Stack* tail = NULL;
+
+    void        push(std::string);
+    std::string pop();
+    void        clear();
+}
+
+terminal DELETE;
+
+void Parser::parse()
+{
+    int count = 0;
+    using std::pair;
+
+    terminal CREATE;
+    terminal INSERT;
+    terminal SELECT;
+    if (match(CREATE) || match(INSERT)
+        || match(DELETE) || match(SELECT)) {
+        count++;
+    } else if (match(END)) {
+        count++;
+    } else {
+        cout << "";
+    }
+    for (int i = 0; i < 4; ++i) {
+
+
+    terminal MINUS;
+    terminal NUM;
+    if (match(NUM) || match(ID)
+        || match(PLUS) || match(MINUS)) {
+        // bool -> comp
+        break;
+    }
+    }
+
+
+
+
 
     stack.push_back(make_shared<Word>(Word(END))); // ההכנסה תמיד תהיה לתחתית המחסנית ולכן ניעזר במתודה פוש-בק
     stack.push_back(make_shared<Variable>(Variable(E))); // הפרסור יתחיל תמיד מחוק הגזירה הראשון
@@ -80,4 +127,8 @@ auto scar = accepted.begin();
     }
 
     LINEDOWN //new line character and flush the stream
+}
+
+bool Parser::match(terminal terminal) {
+    return false;
 }

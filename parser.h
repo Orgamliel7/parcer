@@ -76,6 +76,8 @@ public:
 	void parse();
 	terminal nextToken ();
 	void printLM();
+
+    bool match(terminal terminal);
 };
 
 #endif
