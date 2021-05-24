@@ -4,21 +4,24 @@
 #include "strings.h"
 #include "parser.h"
 #define SEPARATOR "| "
+#define LINEDOWN cout << endl;
+
 void Parser::parse(){
 
     stack.push_back(make_shared<Word>(Word(END))); // ההכנסה תמיד תהיה לתחתית המחסנית ולכן ניעזר במתודה פוש-בק
     stack.push_back(make_shared<Variable>(Variable(E))); // הפרסור יתחיל תמיד מחוק הגזירה הראשון
 
-    shared_ptr<Symbol> simba = stack[stack.size()-1]; //x is the Top of the stack
-    terminal a = nextToken(); //a represents the current token
+    shared_ptr<Symbol> simba = stack[stack.size()-1]; //סימבה הוא הטופ של המחסנית שלנו
+    terminal terminal3 = nextToken(); //מייצג את הטוקן הנוכחי שלנו terminal3
     printLM();
     int jbl = 1;
     while(stack.size() > jbl)
-    { // נבדוק אם הוא מופע של האובייקט מילה
-        if(dynamic_cast<Word*>(simba.get()) != nullptr && simba->getSymbol() == a)
+    {
+        // נבדוק אם הוא מופע של האובייקט מילה
+        if(dynamic_cast<Word*>(simba.get()) != nullptr && simba->getSymbol() == terminal3)
         {
             stack.pop_back();
-            a = nextToken();
+            terminal3 = nextToken();
             accepted.push_back(simba); // נכניס את הטוקן החדש שנגזר לתוך הרשימה
         }
         else if(simba->getSymbol() == EPSILON)
@@ -27,15 +30,17 @@ void Parser::parse(){
             simba = stack[stack.size()-1];
             continue;
         }
-        else if(dynamic_cast<Word*>(simba.get()) != nullptr || table[simba->getSymbol()][a] == jbl-2)
+        else if(dynamic_cast<Word*>(simba.get()) != nullptr || table[simba->getSymbol()][terminal3] == jbl-2)
         {
             cout << "syntax error" << endl;
             return;
         }
-        else{
+        else
+            {
             stack.pop_back();
-            int rule = table[simba->getSymbol()][a];
-            for (auto symbol = rules[rule].begin(); symbol != rules[rule].end(); ++symbol) {
+            int rule = table[simba->getSymbol()][terminal3];
+            for (auto symbol = rules[rule].begin(); symbol != rules[rule].end(); ++symbol)
+            {
                 stack.push_back(*symbol);
             }
         }
@@ -58,7 +63,9 @@ terminal Parser::nextToken ()
     }
 }
 
-void Parser::printLM(){  //  לאחר שתאושר ההדפסה נפריד | ורק אז המחסנית בלי הדולר sign
+void Parser::printLM()
+{
+    //  לאחר שתאושר ההדפסה נפריד | ורק אז המחסנית בלי הדולר sign
 auto scar = accepted.begin();
     for (scar; scar != accepted.end(); ++scar)
     {
@@ -72,5 +79,5 @@ auto scar = accepted.begin();
         (*timon)->printSymbol();
     }
 
-    cout << endl;
+    LINEDOWN //new line character and flush the stream
 }

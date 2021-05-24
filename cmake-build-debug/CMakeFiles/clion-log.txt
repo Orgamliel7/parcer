@@ -1,0 +1,4 @@
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /mnt/c/אור/‏‏parser
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /mnt/c/׳�׳•׳¨/ג€�ג€�parser/cmake-build-debug

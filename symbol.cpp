@@ -3,7 +3,11 @@
 #include "symbol.h"
 #include <iostream>
 #define emptyString " "
+
 using namespace std;
+
+
+
 
 int Symbol::getSymbol()
 {
