@@ -30,7 +30,8 @@ struct Rectangle
         ptr_name = nullptr;
     }
 
-    void set_name(char const *ptr_name_) {
+    void set_name(char const *ptr_name_)
+    {
         if (ptr_name) delete[] ptr_name;
         int name_length = strlen(ptr_name_) + 1;
         ptr_name = new char[name_length];
@@ -99,8 +100,6 @@ void Parser::parse()
 
 
 
-
-
     stack.push_back(make_shared<Word>(Word(END))); // ההכנסה תמיד תהיה לתחתית המחסנית ולכן ניעזר במתודה פוש-בק
     stack.push_back(make_shared<Variable>(Variable(E))); // הפרסור יתחיל תמיד מחוק הגזירה הראשון
     int one = 1;
@@ -131,15 +130,15 @@ void Parser::parse()
         else
             {
             stack.pop_back();
-            int rule = table[simba->getSymbol()][terminal3];
-            for (auto symbol = rules[rule].begin(); symbol != rules[rule].end(); ++symbol)
+            int Obey = table[simba->getSymbol()][terminal3];
+            for (auto symbol = rules[Obey].begin(); symbol != rules[Obey].end(); ++symbol)
             {
                 stack.push_back(*symbol);
             }
         }
 
         printLM();
-        simba = stack[stack.size()-1];
+        simba = stack[stack.size()-jbl];
     }
 }
 

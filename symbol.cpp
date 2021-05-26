@@ -1,6 +1,7 @@
 
 #include "strings.h"
 #include "symbol.h"
+//#include "reverse.h"
 #include <iostream>
 #define emptyString " "
 #include <vector>
@@ -32,7 +33,7 @@ using namespace std;
 
 // נסיון חישוב זמן ריצה בשביל תוכניות בשפה בעתיד
 
-
+int num = 1234567890;
 
     struct TIME1  // מבנה שיגדיר לנו זמן
     {
