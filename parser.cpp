@@ -1,10 +1,49 @@
 
 
 #include <string>
+#include <cstring>
 #include "strings.h"
 #include "parser.h"
 #define SEPARATOR "| "
+#define EMPTYSTRING ""
+#define ERROR cout << "syntax error" << endl;
 #define LINEDOWN cout << endl;
+
+
+struct Rectangle
+        {
+    int width;  // member variable
+    int height; // member variable
+    char *ptr_name;
+    //...
+
+    Rectangle(char const *ptr_name_, int width_, int height_)
+            :
+            width(width_),
+            height(height_),
+            ptr_name(nullptr) {
+        set_name(ptr_name_);
+    }
+
+    ~Rectangle() {
+        if (ptr_name) delete[] ptr_name;
+        ptr_name = nullptr;
+    }
+
+    void set_name(char const *ptr_name_) {
+        if (ptr_name) delete[] ptr_name;
+        int name_length = strlen(ptr_name_) + 1;
+        ptr_name = new char[name_length];
+        strncpy(ptr_name, ptr_name_, name_length);
+    }
+};
+// struct Rectangle
+
+
+
+
+
+
 
 namespace MyStack
 {
@@ -32,20 +71,27 @@ void Parser::parse()
     terminal INSERT;
     terminal SELECT;
     if (match(CREATE) || match(INSERT)
-        || match(DELETE) || match(SELECT)) {
+        || match(DELETE) || match(SELECT))
+    {
         count++;
-    } else if (match(END)) {
+    } else if (match(END))
+    {
+
         count++;
-    } else {
-        cout << "";
+    } else
+        {
+        cout << EMPTYSTRING;
     }
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i)
+    {
 
 
     terminal MINUS;
     terminal NUM;
     if (match(NUM) || match(ID)
-        || match(PLUS) || match(MINUS)) {
+        || match(PLUS) || match(MINUS))
+
+    {
         // bool -> comp
         break;
     }
@@ -57,8 +103,8 @@ void Parser::parse()
 
     stack.push_back(make_shared<Word>(Word(END))); // ההכנסה תמיד תהיה לתחתית המחסנית ולכן ניעזר במתודה פוש-בק
     stack.push_back(make_shared<Variable>(Variable(E))); // הפרסור יתחיל תמיד מחוק הגזירה הראשון
-
-    shared_ptr<Symbol> simba = stack[stack.size()-1]; //סימבה הוא הטופ של המחסנית שלנו
+    int one = 1;
+    shared_ptr<Symbol> simba = stack[stack.size()-one]; //סימבה הוא הטופ של המחסנית שלנו
     terminal terminal3 = nextToken(); //מייצג את הטוקן הנוכחי שלנו terminal3
     printLM();
     int jbl = 1;
@@ -79,7 +125,7 @@ void Parser::parse()
         }
         else if(dynamic_cast<Word*>(simba.get()) != nullptr || table[simba->getSymbol()][terminal3] == jbl-2)
         {
-            cout << "syntax error" << endl;
+            ERROR
             return;
         }
         else
@@ -129,6 +175,7 @@ auto scar = accepted.begin();
     LINEDOWN //new line character and flush the stream
 }
 
-bool Parser::match(terminal terminal) {
+bool Parser::match(terminal terminal)
+{
     return false;
 }
